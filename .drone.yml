@@ -1,0 +1,15 @@
+clone:
+  recursive: true
+build:
+  image: razemio/docker-android
+  commands:
+    - ./gradlew assemble
+    - mv app/build/outputs/apk/app-debug.apk app/build/outputs/apk/SteemitApp-$$TAG.apk
+publish:
+  github_release:
+    api_key: $$GITHUB_TOKEN
+    files:
+      - app/build/outputs/apk/SteemitApp-$$TAG.apk
+    checksum: sha256
+    when:
+      event: tag
