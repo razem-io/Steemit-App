@@ -1,37 +1,43 @@
 package io.razem.steemitapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.koushikdutta.async.http.AsyncHttpClient;
 import com.koushikdutta.async.http.WebSocket;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import io.razem.steemitapp.controller.DiscussionDeserializer;
+import io.razem.steemitapp.model.Discussion;
+import io.razem.steemitapp.model.DiscussionResults;
+import io.razem.steemitapp.view.DiscussionActivity;
+import io.razem.steemitapp.view.DiscussionAdapter;
+import io.razem.steemitapp.view.DiscussionFragment;
 
 public class MainActivity extends AppCompatActivity {
-    final List<String> titles = new ArrayList<>();
+    final List<Discussion> discussions = new ArrayList<>();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final Gson gson = new Gson();
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(Discussion.class, new DiscussionDeserializer());
+        final Gson gson = builder.create();
 
         setContentView(R.layout.activity_main);
 
         final ListView list = (ListView) findViewById(R.id.list);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, titles);
+        final DiscussionAdapter adapter = new DiscussionAdapter(this, discussions);
 
         list.setAdapter(adapter);
 
@@ -59,15 +65,10 @@ public class MainActivity extends AppCompatActivity {
 
                 webSocket.setStringCallback(new WebSocket.StringCallback() {
                     public void onStringAvailable(String s) {
-                        Map discussionResults = gson.fromJson(s, Map.class);
-                        List entries = (List)discussionResults.get("result");
+                        DiscussionResults discussionResults = gson.fromJson(s, DiscussionResults.class);
 
-                        titles.clear();
-
-                        for(Object entry : entries){
-                            Map entryMap = (Map)entry;
-                            titles.add((String) entryMap.get("title"));
-                        }
+                        discussions.clear();
+                        discussions.addAll(discussionResults.getResult());
 
                         runOnUiThread(run);
                     }
@@ -80,9 +81,12 @@ public class MainActivity extends AppCompatActivity {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                // When clicked, show a toast with the TextView text
-                Toast.makeText(getApplicationContext(),
-                        ((TextView) view).getText(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(MainActivity.this, DiscussionActivity.class);
+                Discussion discussion = discussions.get(position);
+                intent.putExtra(DiscussionFragment.EXTRA_DISCUSSIONS, discussion);
+
+                startActivity(intent);
             }
         });
     }

@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Title" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ShortBody" parent="@android:style/TextAppearance.Small">
+        <item name="android:lines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
 </resources>
