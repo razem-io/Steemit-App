@@ -21,4 +21,63 @@
         android:id="@+id/short_body"
         style="@style/ShortBody"
         tools:text="This is some text which should represent the beginning of the body..."/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/payout"
+            style="@style/Meta"
+            tools:text="$3.38"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/time"
+            style="@style/Meta"
+            tools:text="4 hours ago by razem-io in android"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:src="@drawable/votes_icon"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/votes"
+                style="@style/Meta"
+                tools:text="24" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:src="@drawable/comments"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/comments"
+                style="@style/Meta"
+                tools:text="3"
+                android:gravity="right" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
 </LinearLayout>

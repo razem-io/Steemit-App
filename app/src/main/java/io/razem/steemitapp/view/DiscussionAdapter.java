@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import io.razem.steemitapp.R;
 import io.razem.steemitapp.model.Discussion;
@@ -18,6 +20,7 @@ import io.razem.steemitapp.model.Discussion;
 public class DiscussionAdapter extends ArrayAdapter<Discussion> {
     private final Context context;
     private final List<Discussion> discussions;
+    private final NumberFormat numberFormat;
 
 
 
@@ -26,6 +29,7 @@ public class DiscussionAdapter extends ArrayAdapter<Discussion> {
 
         this.context = context;
         this.discussions = discussions;
+        this.numberFormat = NumberFormat.getInstance(Locale.getDefault());
     }
 
     @Override
@@ -39,17 +43,28 @@ public class DiscussionAdapter extends ArrayAdapter<Discussion> {
             convertView = inflater.inflate(R.layout.le_discussion, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.title = (TextView) convertView.findViewById(R.id.title);
-            viewHolder.shortBody =(TextView) convertView.findViewById(R.id.short_body);
+            viewHolder.shortBody = (TextView) convertView.findViewById(R.id.short_body);
+            viewHolder.payout = (TextView) convertView.findViewById(R.id.payout);
+            viewHolder.votes = (TextView) convertView.findViewById(R.id.votes);
+            viewHolder.comments = (TextView) convertView.findViewById(R.id.comments);
 
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
+
+
         Discussion discussion = discussions.get(position);
 
+        String payout = "$" + numberFormat.format(Double.valueOf(discussion.getTotalPendingPayoutValue()
+                .split(" ")[0]));
+
         viewHolder.title.setText(discussion.getTitle());
-        viewHolder.shortBody.setText(discussion.getBody());
+        viewHolder.shortBody.setText(discussion.getBodyShort());
+        viewHolder.payout.setText(payout);
+        viewHolder.votes.setText(numberFormat.format(discussion.getNetVotes()));
+        viewHolder.comments.setText(numberFormat.format(discussion.getChildren()));
 
         return convertView;
     }
@@ -57,5 +72,8 @@ public class DiscussionAdapter extends ArrayAdapter<Discussion> {
     private static class ViewHolder {
         TextView title;
         TextView shortBody;
+        TextView payout;
+        TextView votes;
+        TextView comments;
     }
 }

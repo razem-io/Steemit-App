@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -12,8 +12,15 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="SteemitActionBarText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
+
     <style name="ShortBody" parent="@android:style/TextAppearance.Small">
         <item name="android:lines">2</item>
         <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="Meta" parent="@android:style/TextAppearance.Small">
     </style>
 </resources>
