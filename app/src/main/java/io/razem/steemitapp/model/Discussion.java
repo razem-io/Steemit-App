@@ -11,6 +11,7 @@ public class Discussion implements Serializable {
     private String title;
     private String body;
     private String bodyShort;
+    private String previewImageUrl;
     private Integer children;
     private Integer netVotes;
     private String pendingPayoutValue;
@@ -32,10 +33,15 @@ public class Discussion implements Serializable {
         this.body = body;
 
         this.bodyShort = Markdown.toText(body);
+        this.previewImageUrl = Markdown.getFirstImageUrl(body);
     }
 
     public String getBodyShort() {
         return bodyShort;
+    }
+
+    public String getPreviewImageUrl() {
+        return previewImageUrl;
     }
 
     public Integer getChildren() {

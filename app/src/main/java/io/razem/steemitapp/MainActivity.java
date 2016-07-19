@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                                 "{" +
                                         "\"jsonrpc\": \"2.0\", " +
                                         "\"method\": \"get_discussions_by_" + method + "\", " +
-                                        "\"params\": [{\"tag\": \"\", \"limit\": 20, " +
+                                        "\"params\": [{\"tag\": \"\", \"limit\": 10, " +
                                         "\"filter_tags\": []}], \"id\": 1" +
                                         "}");
 

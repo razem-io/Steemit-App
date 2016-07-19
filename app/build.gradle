@@ -8,8 +8,8 @@ android {
         applicationId "io.razem.steemitapp"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 3
-        versionName "0.0.3"
+        versionCode 4
+        versionName "0.0.4"
     }
     buildTypes {
         release {
@@ -28,4 +28,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'us.feras.mdv:markdownview:1.1.0'
     compile 'org.jsoup:jsoup:1.9.2'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
