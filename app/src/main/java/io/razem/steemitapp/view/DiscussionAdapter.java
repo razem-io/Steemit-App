@@ -1,15 +1,14 @@
 package io.razem.steemitapp.view;
 
 import android.content.Context;
-import android.view.Display;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -53,7 +52,7 @@ public class DiscussionAdapter extends ArrayAdapter<Discussion> {
             viewHolder.votes = (TextView) convertView.findViewById(R.id.votes);
             viewHolder.comments = (TextView) convertView.findViewById(R.id.comments);
 
-            viewHolder.previewImage = (ImageView) convertView.findViewById(R.id.preview_image);
+            viewHolder.previewImage = (SimpleDraweeView) convertView.findViewById(R.id.preview_image);
 
             convertView.setTag(viewHolder);
         }else{
@@ -76,11 +75,10 @@ public class DiscussionAdapter extends ArrayAdapter<Discussion> {
         String previewImageUrl = discussion.getPreviewImageUrl();
         if(previewImageUrl != null){
             viewHolder.previewImage.setVisibility(View.VISIBLE);
-            Picasso.with(context)
-                    .load(previewImageUrl)
-                    .into(viewHolder.previewImage);
+            viewHolder.previewImage.setImageURI(Uri.parse(previewImageUrl));
         }else{
             viewHolder.previewImage.setVisibility(View.GONE);
+            viewHolder.previewImage.setImageURI("");
         }
 
         return convertView;
@@ -93,6 +91,6 @@ public class DiscussionAdapter extends ArrayAdapter<Discussion> {
         TextView votes;
         TextView comments;
 
-        ImageView previewImage;
+        SimpleDraweeView previewImage;
     }
 }

@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="Title" parent="@android:style/TextAppearance.Medium">
+    <style name="Title" parent="@android:style/TextAppearance.Large">
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -16,7 +16,7 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
-    <style name="ShortBody" parent="@android:style/TextAppearance.Small">
+    <style name="ShortBody" parent="@android:style/TextAppearance.Medium">
         <item name="android:lines">2</item>
         <item name="android:ellipsize">end</item>
     </style>
